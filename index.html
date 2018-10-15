@@ -1,0 +1,63 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-commerce Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <h1>E-commerce Demo</h1>
+
+
+    <script>
+        var cart = [];
+
+        var Item = function (name, price, count) {
+            this.name = name
+            this.price = price
+            this.count = count
+        }
+
+        function addItemToCart(name, price, count) {
+            for (var i in cart) {
+                if (cart[i].name === name) {
+                    cart[i].count += count;
+                    return;
+                }
+            }
+            var item = new Item(name, price, count);
+            cart.push(item);
+        }
+
+        addItemToCart("T-shirt", 99.99, 1);
+        addItemToCart("Shirt", 299.99, 1);
+        addItemToCart("T-shirt", 199.99, 2);
+        addItemToCart("Jeans", 499.99, 3);
+
+
+        function removeItemFromCart(name) {
+            for (var i in cart) {
+                if (cart[i].name === name) {
+                    cart[i].count--;
+                    if (cart[i].count === 0) {
+                        cart.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+        console.log(cart);
+        removeItemFromCart("T-shirt");
+        removeItemFromCart("T-shirt");
+        removeItemFromCart("T-shirt");
+        removeItemFromCart("T-shirt");
+        console.log(cart);
+
+    </script>
+</body>
+
+</html>
