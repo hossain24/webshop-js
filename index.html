@@ -33,12 +33,6 @@
             cart.push(item);
         }
 
-        addItemToCart("T-shirt", 99.99, 1);
-        addItemToCart("Shirt", 299.99, 1);
-        addItemToCart("T-shirt", 199.99, 2);
-        addItemToCart("Jeans", 499.99, 3);
-
-
         function removeItemFromCart(name) {
             for (var i in cart) {
                 if (cart[i].name === name) {
@@ -50,13 +44,32 @@
                 }
             }
         }
+
+        function removeItemFromCartAll(name) {
+            for (var i in cart) {
+                if (cart[i].name === name) {
+                    cart.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        addItemToCart("T-shirt", 99.99, 1);
+        addItemToCart("Shirt", 299.99, 1);
+        addItemToCart("T-shirt", 199.99, 2);
+        addItemToCart("Jeans", 499.99, 3);
+        addItemToCart("Jacket", 799.99, 1);
+
         console.log(cart);
-        removeItemFromCart("T-shirt");
-        removeItemFromCart("T-shirt");
-        removeItemFromCart("T-shirt");
-        removeItemFromCart("T-shirt");
+        removeItemFromCartAll("Jacket");
         console.log(cart);
 
+        function clearCart() {
+            cart = [];
+        }
+
+        clearCart();
+        console.log(cart);
     </script>
 </body>
 
