@@ -31,6 +31,7 @@
             }
             var item = new Item(name, price, count);
             cart.push(item);
+            saveCart();
         }
 
         function removeItemFromCart(name) {
@@ -39,10 +40,11 @@
                     cart[i].count--;
                     if (cart[i].count === 0) {
                         cart.splice(i, 1);
-                        break;
                     }
+                    break;
                 }
             }
+            saveCart();
         }
 
         function removeItemFromCartAll(name) {
@@ -52,24 +54,87 @@
                     break;
                 }
             }
+            saveCart();
         }
 
-        addItemToCart("T-shirt", 99.99, 1);
-        addItemToCart("Shirt", 299.99, 1);
-        addItemToCart("T-shirt", 199.99, 2);
-        addItemToCart("Jeans", 499.99, 3);
-        addItemToCart("Jacket", 799.99, 1);
+        /** 
+            addItemToCart("T-shirt", 99.99, 1);
+            addItemToCart("Shirt", 299.99, 1);
+            addItemToCart("T-shirt", 199.99, 2);
+            addItemToCart("Jeans", 499.99, 3);
+            addItemToCart("Jacket", 799.99, 1);
+    
+            console.log(cart.length);
+            console.log(cart);
 
-        console.log(cart);
-        removeItemFromCartAll("Jacket");
-        console.log(cart);
+            removeItemFromCartAll("Jacket");
+
+            console.log(cart.length);
+            console.log(cart); 
+        **/
 
         function clearCart() {
             cart = [];
+            saveCart();
         }
 
-        clearCart();
-        console.log(cart);
+        // clearCart();
+        // console.log(cart);
+
+        function totalItemCount() {
+            var totalCount = 0;
+            for (var i in cart) {
+                totalCount += cart[i].count;
+            }
+            return totalCount;
+        }
+
+        console.log(totalItemCount())
+
+        function totalCostCount() {
+            var totalCost = 0;
+            for (var i in cart) {
+                totalCost += cart[i].price;
+            }
+            return totalCost;
+        }
+
+        console.log(totalCostCount());
+
+        function listCart() {
+            var cartCopy = [];
+            var itemCopy = {};
+            for (var i in cart) {
+                var item = cart[i];
+                for (var p in item) {
+                    itemCopy[p] = item[p];
+                }
+                cartCopy.push(itemCopy);
+            }
+            return cartCopy;
+        }
+
+        // console.log(listCart());
+
+        /** 
+            var array = listCart();
+            array[0].name = "mistake";
+            console.log(array);
+        **/
+        function saveCart() {
+            localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        }
+
+        // localStorage.setItem("name", "John");
+
+        function loadCart() {
+            cart = JSON.parse(localStorage.getItem("shoppingCart"));
+        }
+
+        loadCart();
+        var array = listCart();
+        console.log(array);
+
     </script>
 </body>
 
