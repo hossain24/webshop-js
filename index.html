@@ -6,14 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-commerce Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 
 <body>
 
     <h1>E-commerce Demo</h1>
 
+    <div>
+        <ul>
+            <li><a class="add-to-cart" href="#" data-name="T-shirt" data-price="99.99">T-shirt DKK 99.99</a></li>
+            <li><a class="add-to-cart" href="#" data-name="Shirt" data-price="199.99">Shirt DKK 199.99</a></li>
+            <li><a class="add-to-cart" href="#" data-name="Jeans" data-price="399.99">Jeans DKK 399.99</a></li>
+            <li><a class="add-to-cart" href="#" data-name="Jacket" data-price="799.99">Jacket DKK 799.99</a></li>
+        </ul>
+        <button id="clear-cart">Clear Cart</button>
+    </div>
+
+    <div>
+        <ul id="show-cart">
+        </ul>
+    </div>
 
     <script>
+
+        $(".add-to-cart").click(function (event) {
+            event.preventDefault();
+            var name = $(this).attr("data-name");
+            var price = Number($(this).attr("data-price"));
+
+            addItemToCart(name, price, 1);
+            displayCart();
+        });
+
+        function displayCart() {
+            var cartArray = listCart();
+            var output = "";
+            for (var i in cartArray) {
+                output += "<li>" + cartArray[i].name + " " + cartArray[i].count + "</li>"
+            }
+            $("#show-cart").html(output);
+
+        }
+
+
+        /*****************************/
+        /** Shopping Cart Functions **/
+
         var cart = [];
 
         var Item = function (name, price, count) {
@@ -57,20 +96,21 @@
             saveCart();
         }
 
-        /** 
-            addItemToCart("T-shirt", 99.99, 1);
-            addItemToCart("Shirt", 299.99, 1);
-            addItemToCart("T-shirt", 199.99, 2);
-            addItemToCart("Jeans", 499.99, 3);
-            addItemToCart("Jacket", 799.99, 1);
-    
-            console.log(cart.length);
-            console.log(cart);
 
-            removeItemFromCartAll("Jacket");
+        addItemToCart("T-shirt", 99.99, 1);
+        addItemToCart("Shirt", 299.99, 1);
+        addItemToCart("T-shirt", 199.99, 2);
+        addItemToCart("Jeans", 499.99, 3);
+        addItemToCart("Jacket", 799.99, 1);
 
-            console.log(cart.length);
-            console.log(cart); 
+        /**
+        console.log(cart.length);
+        console.log(cart);
+
+        removeItemFromCartAll("Jacket");
+
+        console.log(cart.length);
+        console.log(cart);
         **/
 
         function clearCart() {
@@ -103,9 +143,9 @@
 
         function listCart() {
             var cartCopy = [];
-            var itemCopy = {};
             for (var i in cart) {
                 var item = cart[i];
+                var itemCopy = {};
                 for (var p in item) {
                     itemCopy[p] = item[p];
                 }
@@ -132,6 +172,8 @@
         }
 
         loadCart();
+        displayCart();
+
         var array = listCart();
         console.log(array);
 
