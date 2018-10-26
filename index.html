@@ -26,16 +26,22 @@
     <div>
         <ul id="show-cart">
         </ul>
+
+        <div>Total Cost: DKK <span id="total-cart"></span></div>
     </div>
 
     <script>
-
         $(".add-to-cart").click(function (event) {
             event.preventDefault();
             var name = $(this).attr("data-name");
             var price = Number($(this).attr("data-price"));
 
             addItemToCart(name, price, 1);
+            displayCart();
+        });
+
+        $("#clear-cart").click(function (event) {
+            clearCart();
             displayCart();
         });
 
@@ -46,9 +52,8 @@
                 output += "<li>" + cartArray[i].name + " " + cartArray[i].count + "</li>"
             }
             $("#show-cart").html(output);
-
+            $("#total-cart").html(totalCostCount());
         }
-
 
         /*****************************/
         /** Shopping Cart Functions **/
@@ -65,6 +70,7 @@
             for (var i in cart) {
                 if (cart[i].name === name) {
                     cart[i].count += count;
+                    saveCart();
                     return;
                 }
             }
@@ -128,17 +134,15 @@
             }
             return totalCount;
         }
-
         console.log(totalItemCount())
 
         function totalCostCount() {
             var totalCost = 0;
             for (var i in cart) {
-                totalCost += cart[i].price;
+                totalCost += cart[i].price * cart[i].count;
             }
             return totalCost;
         }
-
         console.log(totalCostCount());
 
         function listCart() {
