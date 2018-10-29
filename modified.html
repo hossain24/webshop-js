@@ -26,7 +26,7 @@
     <div>
         <ul id="show-cart">
         </ul>
-
+        <div>Total Number of Items: <span id="count-item"></span></div>
         <div>Total Cost: DKK <span id="total-cart"></span></div>
     </div>
 
@@ -63,6 +63,7 @@
                     + "</li>"
             }
             $("#show-cart").html(output);
+            $("#count-item").html(shoppingCart.totalItemCount());
             $("#total-cart").html(shoppingCart.totalCostCount());
         }
 
@@ -139,8 +140,8 @@
 
         shoppingCart.totalItemCount = function () {
             var totalCount = 0;
-            for (var i in cart) {
-                totalCount += cart[i].count;
+            for (var i in this.cart) {
+                totalCount += this.cart[i].count;
             }
             return totalCount;
         };
@@ -166,15 +167,15 @@
                 cartCopy.push(itemCopy);
             }
             return cartCopy;
-        }
+        };
 
         shoppingCart.saveCart = function () {
             localStorage.setItem("shoppingCart", JSON.stringify(this.cart));
-        }
+        };
 
         shoppingCart.loadCart = function () {
             cart = JSON.parse(localStorage.getItem("shoppingCart"));
-        }
+        };
 
     </script>
 </body>
