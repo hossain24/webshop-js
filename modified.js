@@ -98,3 +98,6 @@ shoppingCart.saveCart = function() {
 shoppingCart.loadCart = function() {
   cart = JSON.parse(localStorage.getItem("shoppingCart"));
 };
+
+shoppingCart.saveCart();
+shoppingCart.loadCart();
